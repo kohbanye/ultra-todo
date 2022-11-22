@@ -28,6 +28,24 @@ func GetTask() gin.HandlerFunc {
 	}
 }
 
+func GetTasks() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		db := config.GetDB()
+
+		var tasks []model.Task
+		err := db.Find(&tasks).Error
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"tasks": tasks,
+		})
+	}
+}
+
 func CreateTask() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db := config.GetDB()

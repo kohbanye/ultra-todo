@@ -12,6 +12,7 @@ func Init() *gin.Engine {
 	r.POST("/task", controller.CreateTask())
 	r.PUT("/task/:id", controller.UpdateTask())
 	r.DELETE("/task/:id", controller.DeleteTask())
+	r.GET("/tasks", controller.GetTasks())
 
 	return r
 }
