@@ -1,0 +1,6 @@
+db:
+  host: db
+  port: 3306
+  username: user
+  password: password
+  name: ultra_todo
