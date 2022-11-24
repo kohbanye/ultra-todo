@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  server:
+    build: .
+    restart: always
+    ports:
+      - '8080:8080'
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-u",
+          "user",
+          "-ppassword"
+        ]
+      interval: 5s
+      timeout: 30s
+      retries: 10
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: ultra_todo
+      MYSQL_HOST: db
+    restart: always
+    ports:
+      - '3306:3306'
