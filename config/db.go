@@ -24,7 +24,7 @@ func Init() {
 
 	dsn := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		c.GetString("db.user"),
+		c.GetString("db.username"),
 		c.GetString("db.password"),
 		c.GetString("db.host"),
 		c.GetString("db.port"),
