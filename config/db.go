@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 
+	"github.com/kohbanye/ultra-todo/model"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -31,6 +32,11 @@ func Init() {
 		c.GetString("db.name"),
 	)
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+
+	err = db.AutoMigrate(&model.Task{})
 	if err != nil {
 		panic(err)
 	}
