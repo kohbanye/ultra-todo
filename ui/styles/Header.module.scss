@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  background-color: var(--c-bg-primary);
+  padding: 0.5rem 1rem;
+}
+.logo {
+  font-weight: 750;
+  font-size: 2rem;
+  color: var(--c-primary);
+  text-decoration: none;
+}
+.avatar {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
