@@ -8,10 +8,10 @@ import (
 func Init() *gin.Engine {
 	r := gin.Default()
 
-	r.GET("/task/:id", controller.GetTask())
-	r.POST("/task", controller.CreateTask())
-	r.PUT("/task/:id", controller.UpdateTask())
-	r.DELETE("/task/:id", controller.DeleteTask())
+	r.GET("/tasks/:id", controller.GetTask())
+	r.POST("/tasks", controller.CreateTask())
+	r.PUT("/tasks/:id", controller.UpdateTask())
+	r.DELETE("/tasks/:id", controller.DeleteTask())
 	r.GET("/tasks", controller.GetTasks())
 
 	return r
