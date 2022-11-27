@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Task } from 'api/task'
 import style from 'styles/TaskList.module.scss'
@@ -9,6 +9,9 @@ type TaskListProps = Required<{
 
 const TaskList = (props: TaskListProps) => {
   const [tasks, setTasks] = useState<Task[]>(props.tasks)
+  useEffect(() => {
+    setTasks(props.tasks)
+  }, [props.tasks])
 
   const makeTaskDone = (task: Task) => {
     const newTasks = tasks.map((t) => {
