@@ -20,10 +20,13 @@ func GetTask() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"task": task,
+			"data": task,
 		})
 	}
 }
@@ -38,10 +41,13 @@ func GetTasks() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"tasks": tasks,
+			"data": tasks,
 		})
 	}
 }
@@ -56,6 +62,9 @@ func CreateTask() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 
 		task.CreatedAt = time.Now()
@@ -66,10 +75,13 @@ func CreateTask() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"task": task,
+			"data": task,
 		})
 	}
 }
@@ -85,6 +97,9 @@ func UpdateTask() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 
 		createdAt := task.CreatedAt
@@ -94,6 +109,9 @@ func UpdateTask() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 
 		task.CreatedAt = createdAt
@@ -104,10 +122,13 @@ func UpdateTask() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"task": task,
+			"data": task,
 		})
 	}
 }
@@ -123,6 +144,9 @@ func DeleteTask() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 
 		err = db.Delete(&task).Error
@@ -130,10 +154,13 @@ func DeleteTask() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"task": task,
+			"data": task,
 		})
 	}
 }
