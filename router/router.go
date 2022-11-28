@@ -15,11 +15,24 @@ func Init() *gin.Engine {
 		AllowHeaders: []string{"Origin", "Content-Type"},
 	}))
 
-	r.GET("/tasks/:id", controller.GetTask())
-	r.POST("/tasks", controller.CreateTask())
-	r.PUT("/tasks/:id", controller.UpdateTask())
-	r.DELETE("/tasks/:id", controller.DeleteTask())
-	r.GET("/tasks", controller.GetTasks())
+	authMiddleware, err := controller.AuthMiddleware()
+	if err != nil {
+		panic(err)
+	}
+
+	r.POST("/login", authMiddleware.LoginHandler)
+	r.POST("/register", controller.CreateUser())
+
+	auth := r.Group("/auth")
+	auth.GET("/refresh_token", authMiddleware.RefreshHandler)
+	auth.Use(authMiddleware.MiddlewareFunc())
+	{
+		auth.GET("/tasks/:id", controller.GetTask())
+		auth.POST("/tasks", controller.CreateTask())
+		auth.PUT("/tasks/:id", controller.UpdateTask())
+		auth.DELETE("/tasks/:id", controller.DeleteTask())
+		auth.GET("/tasks", controller.GetTasks())
+	}
 
 	return r
 }

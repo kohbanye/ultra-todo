@@ -36,7 +36,7 @@ func Init() {
 		panic(err)
 	}
 
-	err = db.AutoMigrate(&model.Task{})
+	err = db.AutoMigrate(&model.Task{}, &model.User{})
 	if err != nil {
 		panic(err)
 	}
