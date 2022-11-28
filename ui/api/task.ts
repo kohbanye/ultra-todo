@@ -12,7 +12,7 @@ export interface Task {
 export const getTask = async (id: number): Promise<Task | null> => {
   let task: Task | null = null
   try {
-    const { data } = await instance.get(`/tasks/${id}`)
+    const { data } = await instance.get(`/auth/tasks/${id}`)
     task = data.data
   } catch (error) {
     console.error(error)
@@ -24,7 +24,7 @@ export const getTask = async (id: number): Promise<Task | null> => {
 export const createTask = async (task: Task): Promise<Task | null> => {
   let createdTask: Task | null = null
   try {
-    const { data } = await instance.post('/tasks', task)
+    const { data } = await instance.post('/auth/tasks', task)
     createdTask = data.data
   } catch (error) {
     console.error(error)
@@ -36,7 +36,7 @@ export const createTask = async (task: Task): Promise<Task | null> => {
 export const updateTask = async (task: Task): Promise<Task | null> => {
   let updatedTask: Task | null = null
   try {
-    const { data } = await instance.put(`/tasks/${task.id}`, task)
+    const { data } = await instance.put(`/auth/tasks/${task.id}`, task)
     updatedTask = data.data
   } catch (error) {
     console.error(error)
@@ -48,7 +48,7 @@ export const updateTask = async (task: Task): Promise<Task | null> => {
 export const deleteTask = async (id: number): Promise<Task | null> => {
   let task: Task | null = null
   try {
-    const { data } = await instance.delete(`/tasks/${id}`)
+    const { data } = await instance.delete(`/auth/tasks/${id}`)
     task = data.data
   } catch (error) {
     console.error(error)
@@ -60,7 +60,7 @@ export const deleteTask = async (id: number): Promise<Task | null> => {
 export const getTasks = async (): Promise<Task[]> => {
   let tasks: Task[] = []
   try {
-    const { data } = await instance.get('/tasks')
+    const { data } = await instance.get('/auth/tasks')
     tasks = data.data
   } catch (error) {
     console.error(error)
