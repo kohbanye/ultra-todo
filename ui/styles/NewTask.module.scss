@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.button {
+  width: 5rem;
+  margin-top: 1rem;
+  background-color: var(--c-primary);
+  &:hover {
+    background-color: var(--c-tertiary);
+  }
+}
