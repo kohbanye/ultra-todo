@@ -17,6 +17,19 @@
   background-color: var(--c-bg-primary);
   padding: 10rem 1rem;
 }
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  margin-bottom: 1rem;
+  .icon {
+    margin-right: 0.25rem;
+  }
+}
+.hidden {
+  visibility: hidden;
+}
 .input {
   width: 100%;
   max-width: 20rem;
