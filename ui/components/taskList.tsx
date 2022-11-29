@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Task } from 'api/task'
+import { doneTask, Task } from 'api/task'
 import style from 'styles/TaskList.module.scss'
 
 type TaskListProps = Required<{
@@ -21,6 +21,7 @@ const TaskList = (props: TaskListProps) => {
       return t
     })
     setTasks(newTasks)
+    doneTask(task.id!)
   }
 
   return (

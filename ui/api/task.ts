@@ -68,3 +68,15 @@ export const getTasks = async (): Promise<Task[]> => {
 
   return tasks
 }
+
+export const doneTask = async (id: number): Promise<Task | null> => {
+  let task: Task | null = null
+  try {
+    const { data } = await instance.put(`/auth/tasks/${id}/done`)
+    task = data.data
+  } catch (error) {
+    console.error(error)
+  }
+
+  return task
+}

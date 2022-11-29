@@ -23,6 +23,7 @@ func Init(r *gin.Engine) *gin.Engine {
 		auth.PUT("/tasks/:id", controller.UpdateTask())
 		auth.DELETE("/tasks/:id", controller.DeleteTask())
 		auth.GET("/tasks", controller.GetTasks())
+		auth.PUT("/tasks/:id/done", controller.DoneTask())
 	}
 
 	return r

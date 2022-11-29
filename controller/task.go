@@ -164,3 +164,38 @@ func DeleteTask() gin.HandlerFunc {
 		})
 	}
 }
+
+func DoneTask() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		db := config.GetDB()
+		id := c.Param("id")
+
+		var task model.Task
+		err := db.First(&task, id).Error
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+
+			c.Abort()
+			return
+		}
+
+		task.Done = true
+		task.UpdatedAt = time.Now()
+
+		err = db.Save(&task).Error
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+
+			c.Abort()
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"data": task,
+		})
+	}
+}

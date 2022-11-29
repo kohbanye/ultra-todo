@@ -2,12 +2,9 @@ package model
 
 import (
 	"time"
-
-	"gorm.io/gorm"
 )
 
 type User struct {
-	gorm.Model
 	ID       int    `json:"id"`
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -19,7 +16,6 @@ type UserRequest struct {
 }
 
 type Task struct {
-	gorm.Model
 	ID          int       `json:"id"`
 	Title       string    `json:"title" binding:"required"`
 	Description string    `json:"description"`
