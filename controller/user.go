@@ -33,8 +33,21 @@ func CreateUser() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
+
+			c.Abort()
+			return
 		}
 		user.Password = string(hashed)
+
+		err = db.First(&user, "username = ?", user.Username).Error
+		if err == nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": fmt.Sprintf("User '%s' already exists", user.Username),
+			})
+
+			c.Abort()
+			return
+		}
 
 		err = db.Create(&user).Error
 		if err != nil {
@@ -47,7 +60,7 @@ func CreateUser() gin.HandlerFunc {
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"message": fmt.Sprintf("User %s created", user.Username),
+			"message": fmt.Sprintf("User '%s' created", user.Username),
 		})
 	}
 }
