@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--c-bg-secondary);
+  border-radius: 0.8rem;
+  height: fit-content;
+  margin: 3rem 15vw;
+  padding: 1.5rem;
+}
+.delete {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: red;
+  margin-bottom: -0.5rem;
+  cursor: pointer;
+  transition: opacity 0.1s ease-in-out;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+.title {
+  margin-bottom: 1rem;
+}
+.description {
+  margin-bottom: 1rem;
+}
+.button {
+  min-width: 8rem;
+  width: 20%;
+  margin: 0 auto;
+  background-color: var(--c-primary);
+  &:hover {
+    background-color: var(--c-primary-dark);
+  }
+}

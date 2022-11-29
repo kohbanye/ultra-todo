@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import { doneTask, Task } from 'api/task'
@@ -34,7 +35,9 @@ const TaskList = (props: TaskListProps) => {
                 className={style.button}
                 onClick={(_) => makeTaskDone(task)}
               ></button>
-              {task.title}
+              <Link href={`/task/${task.id}`} className={style.link}>
+                {task.title}
+              </Link>
             </div>
           )
       )}
