@@ -5,6 +5,11 @@ export interface User {
   password: string
 }
 
+export interface UserResponse {
+  id: number
+  username: string
+}
+
 export const login = async (
   username: string,
   password: string
@@ -27,6 +32,16 @@ export const register = async (
     await instance.post('/register', { username, password })
     const res = await login(username, password)
     return res
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+export const getMe = async (): Promise<UserResponse | null> => {
+  try {
+    const { data } = await instance.get('/auth/users/me')
+    return data.data as UserResponse
   } catch (error) {
     console.error(error)
     return null

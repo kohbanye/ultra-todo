@@ -24,6 +24,9 @@ func Init(r *gin.Engine) *gin.Engine {
 		auth.DELETE("/tasks/:id", controller.DeleteTask())
 		auth.GET("/tasks", controller.GetTasks())
 		auth.PUT("/tasks/:id/done", controller.DoneTask())
+
+		auth.POST("/logout", authMiddleware.LogoutHandler)
+		auth.GET("/users/me", controller.GetUserMe())
 	}
 
 	return r

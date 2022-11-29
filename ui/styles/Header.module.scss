@@ -9,8 +9,12 @@
   color: var(--c-primary);
   text-decoration: none;
 }
-.avatar {
+.user {
   display: flex;
   align-items: center;
   margin-left: auto;
+  cursor: pointer;
+  .icon {
+    color: var(--c-bg-tertiary);
+  }
 }

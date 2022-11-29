@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+.user {
+  display: flex;
+  align-items: center;
+}
+.username {
+  font-size: 1.5rem;
+}
+.userIcon {
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-right: 0.5rem;
+}
+.editIcon {
+  color: var(--c-primary);
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transition: color 0.1s ease-in-out;
+  &:hover {
+    color: var(--c-primary-dark);
+  }
+}
