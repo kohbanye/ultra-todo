@@ -20,6 +20,8 @@ type Task struct {
 	Title       string    `json:"title" binding:"required"`
 	Description string    `json:"description"`
 	Done        bool      `json:"done"`
+	UserID      int       `json:"user_id"`
+	CreatedBy   User      `json:"created_by" gorm:"foreignKey:UserID"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }

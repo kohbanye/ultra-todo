@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
 
+	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"github.com/kohbanye/ultra-todo/config"
 	"github.com/kohbanye/ultra-todo/model"
@@ -34,9 +35,10 @@ func GetTask() gin.HandlerFunc {
 func GetTasks() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db := config.GetDB()
+		userID := jwt.ExtractClaims(c)["id"].(float64)
 
 		var tasks []model.Task
-		err := db.Find(&tasks).Error
+		err := db.Find(&tasks, "user_id = ?", userID).Error
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
@@ -55,6 +57,7 @@ func GetTasks() gin.HandlerFunc {
 func CreateTask() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db := config.GetDB()
+		userID := jwt.ExtractClaims(c)["id"].(float64)
 
 		var task model.Task
 		err := c.BindJSON(&task)
@@ -67,6 +70,19 @@ func CreateTask() gin.HandlerFunc {
 			return
 		}
 
+		var user model.User
+		err = db.First(&user, userID).Error
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+
+			c.Abort()
+			return
+		}
+
+		task.UserID = int(userID)
+		task.CreatedBy = user
 		task.CreatedAt = time.Now()
 		task.UpdatedAt = time.Now()
 
