@@ -1,6 +1,5 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-import { GetServerSideProps } from 'next'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 
 import { getTasks, Task } from 'api/task'
@@ -8,13 +7,19 @@ import NewTask from 'components/newTask'
 import TaskList from 'components/taskList'
 import style from 'styles/Home.module.scss'
 
-type HomeProps = Required<{
-  tasks: Task[]
-}>
-
-const Home = (props: HomeProps) => {
-  const [tasks, setTasks] = useState(props.tasks)
+const Home = () => {
+  const [tasks, setTasks] = useState<Task[]>([])
   const [showModal, setShowModal] = useState(false)
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const tasks = await getTasks()
+
+      setTasks(tasks)
+    }
+
+    fetchTasks()
+  }, [])
 
   const handleOpenModal = () => {
     setShowModal(true)
@@ -42,14 +47,6 @@ const Home = (props: HomeProps) => {
       <TaskList tasks={tasks} />
     </div>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {
-      tasks: await getTasks()
-    }
-  }
 }
 
 export default Home

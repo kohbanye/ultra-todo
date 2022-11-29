@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"net/http"
 	"time"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
@@ -38,9 +39,14 @@ func AuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 				"message": message,
 			})
 		},
-		TokenLookup:   "header: Authorization, query: token, cookie: jwt",
-		TokenHeadName: "Bearer",
-		TimeFunc:      time.Now,
+		TokenLookup:    "header: Authorization, query: token, cookie: jwt",
+		TokenHeadName:  "Bearer",
+		TimeFunc:       time.Now,
+		SendCookie:     true,
+		SecureCookie:   false,
+		CookieHTTPOnly: false,
+		CookieDomain:   "localhost",
+		CookieSameSite: http.SameSiteDefaultMode,
 	})
 }
 
