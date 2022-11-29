@@ -12,7 +12,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
     }
   }, [router])
 
-  return router.asPath === '/login' ? (
+  return router.asPath === '/login' || router.asPath === '/register' ? (
     <Component {...pageProps} />
   ) : (
     <Layout>
