@@ -39,6 +39,7 @@ const Home = () => {
         onRequestClose={handleCloseModal}
         shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
+        ariaHideApp={false}
         className={style.modal}
         overlayClassName={style.overlay}
       >
